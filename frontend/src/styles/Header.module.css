@@ -1,0 +1,137 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 17, 31, 0.78);
+  backdrop-filter: blur(18px);
+}
+
+.inner {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  width: 168px;
+  height: 42px;
+  overflow: hidden;
+  border: 1px solid rgba(126, 231, 255, 0.24);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: #d9e6f5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.nav a {
+  transition: color 160ms ease;
+}
+
+.nav a:hover {
+  color: #78e7ff;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contactButton {
+  min-height: 40px;
+  padding: 0 16px;
+}
+
+.menuButton {
+  display: none;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  color: #f8fbff;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.mobilePanel {
+  display: none;
+}
+
+@media (max-width: 940px) {
+  .nav,
+  .contactButton {
+    display: none;
+  }
+
+  .menuButton {
+    display: inline-flex;
+  }
+
+  .mobilePanel {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    background: rgba(8, 17, 31, 0.96);
+    transition:
+      max-height 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .mobilePanelOpen {
+    max-height: 420px;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .mobileNav {
+    display: grid;
+    width: min(100% - 40px, 1180px);
+    margin: 0 auto;
+    gap: 8px;
+    padding: 18px 0 24px;
+  }
+
+  .mobileNav a {
+    border-radius: 8px;
+    padding: 13px 12px;
+    color: #e9f4ff;
+    background: rgba(255, 255, 255, 0.045);
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 640px) {
+  .inner {
+    min-height: 68px;
+  }
+
+  .logo {
+    width: 142px;
+    height: 38px;
+  }
+
+  .mobileNav {
+    width: min(100% - 28px, 1180px);
+  }
+}

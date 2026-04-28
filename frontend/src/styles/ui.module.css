@@ -1,0 +1,255 @@
+.button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.primary {
+  color: #06111f;
+  background: linear-gradient(135deg, #78e7ff, #a697ff);
+  box-shadow: 0 18px 36px rgba(33, 199, 238, 0.24);
+}
+
+.secondary {
+  color: #eef8ff;
+  border: 1px solid rgba(126, 231, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ghost {
+  color: #e9f4ff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sectionTitle {
+  max-width: 740px;
+}
+
+.sectionTitle.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(33, 199, 238, 0.28);
+  border-radius: 999px;
+  padding: 0 12px;
+  color: #126a87;
+  background: rgba(33, 199, 238, 0.08);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sectionTitle h2 {
+  color: var(--text);
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.sectionTitle p {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.68;
+}
+
+:global(.section-dark) .sectionTitle h2 {
+  color: #f8fbff;
+}
+
+:global(.section-dark) .sectionTitle p {
+  color: var(--muted-dark);
+}
+
+:global(.section-dark) .eyebrow {
+  color: #9cefff;
+  background: rgba(33, 199, 238, 0.12);
+  border-color: rgba(126, 231, 255, 0.28);
+}
+
+.productCard {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  border: 1px solid rgba(47, 76, 116, 0.13);
+  border-radius: 8px;
+  padding: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 250, 255, 0.92)),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(33, 199, 238, 0.38);
+  box-shadow: var(--shadow);
+}
+
+.cardTopline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+}
+
+.iconBox,
+.smallIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #0e6881;
+  background: linear-gradient(135deg, rgba(33, 199, 238, 0.16), rgba(124, 92, 255, 0.12));
+}
+
+.iconBox {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 30px;
+}
+
+.productCard h3,
+.advantageCard h3 {
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1.24;
+  letter-spacing: 0;
+}
+
+.productCard p,
+.advantageCard p {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.cardArrow {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  color: rgba(16, 32, 51, 0.32);
+}
+
+.advantageCard {
+  display: flex;
+  min-height: 156px;
+  gap: 18px;
+  border: 1px solid rgba(47, 76, 116, 0.12);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 30px rgba(20, 46, 79, 0.07);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.advantageCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(33, 199, 238, 0.32);
+  background: #ffffff;
+}
+
+.smallIcon {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+}
+
+:global(.section-dark) .advantageCard {
+  border-color: var(--line-dark);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: none;
+}
+
+:global(.section-dark) .advantageCard:hover {
+  background: rgba(255, 255, 255, 0.075);
+}
+
+:global(.section-dark) .advantageCard h3 {
+  color: #f8fbff;
+}
+
+:global(.section-dark) .advantageCard p {
+  color: var(--muted-dark);
+}
+
+:global(.section-dark) .smallIcon {
+  color: #9cefff;
+  background: rgba(33, 199, 238, 0.12);
+}
+
+@media (max-width: 900px) {
+  .sectionTitle h2 {
+    font-size: 34px;
+  }
+
+  .sectionTitle p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .button {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 16px;
+  }
+
+  .sectionTitle h2 {
+    font-size: 28px;
+    line-height: 1.14;
+  }
+
+  .sectionTitle.center {
+    text-align: left;
+  }
+
+  .productCard {
+    min-height: 240px;
+    padding: 24px;
+  }
+
+  .advantageCard {
+    min-height: auto;
+    padding: 20px;
+  }
+}
