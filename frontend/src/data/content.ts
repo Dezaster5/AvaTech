@@ -3,17 +3,12 @@ import {
   BadgeCheck,
   Blocks,
   BriefcaseBusiness,
-  Clock3,
-  CreditCard,
   Handshake,
   Headphones,
   Layers3,
   MonitorSmartphone,
-  QrCode,
-  ReceiptText,
   Settings2,
   ShieldCheck,
-  Smartphone,
   Store,
   UsersRound,
   Utensils,
@@ -32,11 +27,11 @@ export type CardItem = {
 };
 
 export const navItems: NavItem[] = [
-  { label: "О компании", href: "#about" },
-  { label: "Продукты", href: "#products" },
-  { label: "Преимущества", href: "#advantages" },
-  { label: "Для кого", href: "#audience" },
-  { label: "Контакты", href: "#contacts" }
+  { label: "О компании", href: "/#about" },
+  { label: "Продукты", href: "/#products" },
+  { label: "Преимущества", href: "/#advantages" },
+  { label: "Для кого", href: "/#audience" },
+  { label: "Контакты", href: "/#contacts" }
 ];
 
 export const aboutPoints: CardItem[] = [
@@ -82,39 +77,6 @@ export const teamRoles: CardItem[] = [
     title: "Внедрение и поддержка",
     description: "Настройка продуктов, обучение команд и сопровождение после запуска.",
     Icon: Settings2
-  }
-];
-
-export const products: CardItem[] = [
-  {
-    title: "Касса самообслуживания",
-    description: "Продажа билетов гостям детских развлекательных парков без участия кассира.",
-    Icon: CreditCard
-  },
-  {
-    title: "Мобильное приложение для гостей",
-    description: "Программа лояльности, покупка билетов, бронирование кабинок и цифровое взаимодействие с парком.",
-    Icon: Smartphone
-  },
-  {
-    title: "HR Tech-приложение для сотрудников",
-    description: "Цифровой инструмент для сотрудников, внутренних процессов и коммуникации.",
-    Icon: UsersRound
-  },
-  {
-    title: "Мобильная касса",
-    description: "Продажа услуг и билетов внутри парка с мобильного устройства.",
-    Icon: ReceiptText
-  },
-  {
-    title: "QR-ресторан",
-    description: "Заказ блюд в ресторане через QR без участия официанта.",
-    Icon: QrCode
-  },
-  {
-    title: "AvaTracker",
-    description: "Трекинг сотрудников и автоматизация учёта рабочего времени.",
-    Icon: Clock3
   }
 ];
 

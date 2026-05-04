@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { navItems } from "../data/content";
 import styles from "../styles/Footer.module.css";
 
@@ -6,9 +8,9 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.footerGrid}`}>
         <div>
-          <a className={styles.footerLogo} href="#top" aria-label="AvaTech">
+          <Link className={styles.footerLogo} to="/" aria-label="AvaTech">
             AvaTech
-          </a>
+          </Link>
           <p>
             IT-компания из экосистемы Avatariya. Разрабатываем и внедряем цифровые продукты для парков развлечений,
             ресторанов и предприятий сферы развлечений.
@@ -18,9 +20,9 @@ export function Footer() {
         <nav aria-label="Навигация в подвале">
           <strong>Навигация</strong>
           {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
+            <Link key={item.href} to={item.href}>
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
         <div>

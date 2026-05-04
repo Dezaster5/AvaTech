@@ -97,12 +97,14 @@
 }
 
 .productCard {
+  display: block;
   position: relative;
   min-height: 280px;
   overflow: hidden;
   border: 1px solid rgba(47, 76, 116, 0.13);
   border-radius: 8px;
   padding: 28px;
+  color: inherit;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 250, 255, 0.92)),
     var(--surface);
@@ -117,6 +119,11 @@
   transform: translateY(-5px);
   border-color: rgba(33, 199, 238, 0.38);
   box-shadow: var(--shadow);
+}
+
+.productCard:focus-visible {
+  outline: 3px solid rgba(33, 199, 238, 0.42);
+  outline-offset: 4px;
 }
 
 .cardTopline {
@@ -165,6 +172,14 @@
   right: 22px;
   bottom: 22px;
   color: rgba(16, 32, 51, 0.32);
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.productCard:hover .cardArrow {
+  color: #1689a8;
+  transform: translate(3px, -3px);
 }
 
 .advantageCard {

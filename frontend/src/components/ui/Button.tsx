@@ -1,4 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import { Link } from "react-router-dom";
+import type { LinkProps } from "react-router-dom";
 
 import styles from "../../styles/ui.module.css";
 
@@ -9,11 +11,20 @@ type BaseButtonProps = {
 };
 
 type ButtonAsButton = BaseButtonProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
-type ButtonAsLink = BaseButtonProps & AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
-type ButtonProps = ButtonAsButton | ButtonAsLink;
+type ButtonAsAnchor = BaseButtonProps & AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; to?: never };
+type ButtonAsRouterLink = BaseButtonProps & Omit<LinkProps, "to"> & { to: LinkProps["to"]; href?: never };
+type ButtonProps = ButtonAsButton | ButtonAsAnchor | ButtonAsRouterLink;
 
 export function Button({ children, href, variant = "primary", className = "", ...props }: ButtonProps) {
   const classNames = [styles.button, styles[variant], className].filter(Boolean).join(" ");
+
+  if ("to" in props && props.to) {
+    return (
+      <Link className={classNames} {...(props as Omit<LinkProps, "className">)}>
+        {children}
+      </Link>
+    );
+  }
 
   if (href) {
     return (

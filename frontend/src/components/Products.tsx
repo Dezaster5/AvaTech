@@ -1,6 +1,6 @@
-import { products } from "../data/content";
+import { products } from "../data/products";
 import styles from "../styles/sections.module.css";
-import { ProductCard } from "./ui/ProductCard";
+import { ProductCard } from "./ProductCard";
 import { SectionTitle } from "./ui/SectionTitle";
 
 export function Products() {
@@ -16,7 +16,7 @@ export function Products() {
         </div>
         <div className={styles.productGrid}>
           {products.map((item) => (
-            <ProductCard key={item.title} {...item} />
+            <ProductCard key={item.id} product={item} />
           ))}
         </div>
       </div>

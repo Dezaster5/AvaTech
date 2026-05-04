@@ -20,6 +20,8 @@ Production-ready стартовый проект для корпоративно
 │   ├── Dockerfile
 │   └── nginx.conf
 ├── deploy/nginx/            # пример nginx-конфига для avtch.io + SSL
+├── deploy/TEST_DEPLOY.md    # тестовый деплой на Render + Vercel + Neon
+├── render.yaml              # Render blueprint для backend
 ├── docker-compose.yml
 ├── .env.example
 └── README.md
@@ -28,8 +30,9 @@ Production-ready стартовый проект для корпоративно
 ## Что реализовано
 
 - Одностраничный корпоративный сайт на русском языке.
-- Header с якорной навигацией, sticky blur и мобильным меню.
+- Header с якорной навигацией, sticky blur и анимацией в компактный top bar при скролле.
 - Hero, блоки о компании, команде, продуктах, преимуществах, аудитории, контактах и footer.
+- Отдельные страницы продуктов `/products/...` с галереей, fullscreen-просмотром изображений, CTA и SEO.
 - Форма заявки с frontend-валидацией, loading/success/error состояниями и honeypot-полем.
 - Django endpoint `POST /api/contact/`.
 - Модель `ContactRequest`, сохранение IP/User-Agent и просмотр заявок в Django admin.
@@ -154,3 +157,21 @@ gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3
 6. Добавить Google Analytics и Яндекс Метрику в `frontend/index.html` после получения идентификаторов счётчиков.
 
 Для production рекомендуется установить `DJANGO_DEBUG=False`, сложный `DJANGO_SECRET_KEY`, строгие `DJANGO_ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS` и реальные SMTP-данные.
+
+## Test deploy: Render + Vercel + Neon
+
+Подготовлены `render.yaml`, `frontend/vercel.json` и инструкция `deploy/TEST_DEPLOY.md`.
+
+Коротко:
+
+```env
+# Render backend
+DATABASE_URL=postgresql://USER:PASSWORD@HOST/DB?sslmode=require
+DJANGO_ALLOWED_HOSTS=<your-render-service>.onrender.com
+CORS_ALLOWED_ORIGINS=https://<your-vercel-app>.vercel.app
+CSRF_TRUSTED_ORIGINS=https://<your-render-service>.onrender.com,https://<your-vercel-app>.vercel.app
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+
+# Vercel frontend
+VITE_API_URL=https://<your-render-service>.onrender.com/api
+```
