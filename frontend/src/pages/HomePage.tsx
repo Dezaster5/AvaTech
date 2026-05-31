@@ -9,6 +9,7 @@ import { Contacts } from "../components/Contacts";
 import { Hero } from "../components/Hero";
 import { Products } from "../components/Products";
 import { Team } from "../components/Team";
+import { TrustedBy } from "../components/TrustedBy";
 import styles from "../styles/App.module.css";
 
 const HOME_TITLE = "AvaTech — IT-решения для детских развлекательных парков";
@@ -53,6 +54,7 @@ export function HomePage() {
         </div>
       </section>
       <Contacts />
+      <TrustedBy />
     </main>
   );
 }

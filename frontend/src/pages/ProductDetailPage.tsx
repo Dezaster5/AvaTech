@@ -62,6 +62,9 @@ export function ProductDetailPage() {
       </section>
 
       <ProductBenefits title="Функции, которые закрывают операционные задачи" items={product.features} />
+      {product.integrations?.length ? (
+        <ProductBenefits eyebrow="Интеграции" title="Готовые подключения продукта" items={product.integrations} />
+      ) : null}
       <ProductUseCases audience={product.audience} businessValue={product.businessValue} />
       <ProductGallery product={product} />
       <ProductCTA />

@@ -104,7 +104,6 @@
 
 .heroVisual,
 .galleryPreview {
-  overflow: hidden;
   border: 1px solid rgba(187, 213, 255, 0.16);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.06);
@@ -113,6 +112,7 @@
 .heroVisual {
   position: relative;
   min-height: 430px;
+  overflow: hidden;
   padding: 18px;
   box-shadow: 0 34px 120px rgba(0, 0, 0, 0.32);
 }
@@ -280,21 +280,6 @@
   font-size: 14px;
 }
 
-.galleryPreview img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 22px 38px rgba(3, 9, 19, 0.28));
-  transition:
-    transform 220ms ease,
-    filter 220ms ease;
-}
-
-.galleryImageButton:hover img {
-  transform: scale(1.015);
-  filter: drop-shadow(0 28px 44px rgba(3, 9, 19, 0.34));
-}
-
 .descriptionSection {
   padding: 84px 0 44px;
 }
@@ -458,9 +443,10 @@
 .galleryPreview {
   position: relative;
   display: grid;
-  height: clamp(340px, 46vw, 560px);
+  min-height: clamp(360px, 50vw, 720px);
   place-items: center;
-  padding: 18px;
+  padding: clamp(18px, 3vw, 34px);
+  overflow: visible;
   background:
     radial-gradient(circle at 18% 18%, rgba(33, 199, 238, 0.18), transparent 34%),
     radial-gradient(circle at 80% 20%, rgba(124, 92, 255, 0.22), transparent 32%),
@@ -471,14 +457,43 @@
 
 .galleryImageButton {
   position: relative;
-  display: grid;
+  display: flex;
   width: 100%;
-  height: 100%;
-  place-items: center;
+  height: auto;
+  min-height: inherit;
+  align-items: center;
+  justify-content: center;
   border: 0;
   padding: 0;
   background: transparent;
   cursor: zoom-in;
+}
+
+.galleryImageFrame {
+  display: flex;
+  width: 100%;
+  min-height: inherit;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.galleryImage {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(74vh, 720px);
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 22px 38px rgba(3, 9, 19, 0.28));
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.galleryImageButton:hover .galleryImage {
+  filter: drop-shadow(0 28px 44px rgba(3, 9, 19, 0.34));
 }
 
 .galleryImageButton::after {
@@ -940,7 +955,7 @@
   }
 
   .galleryPreview {
-    height: min(68vh, 430px);
+    min-height: 420px;
     padding: 10px;
   }
 

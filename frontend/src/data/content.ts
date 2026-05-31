@@ -31,7 +31,8 @@ export const navItems: NavItem[] = [
   { label: "Продукты", href: "/#products" },
   { label: "Преимущества", href: "/#advantages" },
   { label: "Для кого", href: "/#audience" },
-  { label: "Контакты", href: "/#contacts" }
+  { label: "Контакты", href: "/#contacts" },
+  { label: "Нам доверяют", href: "/#trusted-by" }
 ];
 
 export const aboutPoints: CardItem[] = [

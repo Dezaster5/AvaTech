@@ -258,6 +258,52 @@
   color: #1689a8;
 }
 
+.trustedGrid {
+  display: grid;
+  max-width: 920px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 auto;
+}
+
+.trustedCard {
+  display: grid;
+  min-height: 190px;
+  align-content: center;
+  gap: 18px;
+  border: 1px solid rgba(47, 76, 116, 0.12);
+  border-radius: 8px;
+  padding: 28px;
+  background: #ffffff;
+  box-shadow: 0 20px 54px rgba(20, 46, 79, 0.08);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.trustedCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(33, 199, 238, 0.28);
+  box-shadow: 0 26px 66px rgba(20, 46, 79, 0.12);
+}
+
+.trustedCard img {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: 76px;
+  object-fit: contain;
+  object-position: left center;
+  image-rendering: auto;
+}
+
+.trustedCard h3 {
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -281,6 +327,7 @@
   .fourGrid,
   .productGrid,
   .advantageGrid,
+  .trustedGrid,
   .audienceGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -340,8 +387,19 @@
   .fourGrid,
   .productGrid,
   .advantageGrid,
+  .trustedGrid,
   .audienceGrid {
     grid-template-columns: 1fr;
+  }
+
+  .trustedCard {
+    min-height: 164px;
+    padding: 22px;
+  }
+
+  .trustedCard img {
+    max-width: 260px;
+    height: 64px;
   }
 
   .contactList a,

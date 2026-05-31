@@ -128,7 +128,13 @@ function GalleryCarousel({ images, title }: GalleryCarouselProps) {
             onClick={openLightbox}
             aria-label={`Открыть изображение ${title} на весь экран`}
           >
-            <ProductImage src={selectedImage} alt={`${title}: выбранное изображение`} />
+            <span className={styles.galleryImageFrame}>
+              <ProductImage
+                className={styles.galleryImage}
+                src={selectedImage}
+                alt={`${title}: выбранное изображение`}
+              />
+            </span>
           </button>
         </div>
         <button

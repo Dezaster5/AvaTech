@@ -10,6 +10,9 @@ backend/media/
 backend/**/__pycache__/
 backend/**/*.py[cod]
 frontend/dist/
+frontend/*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
 .DS_Store
 .codex
 .codex/

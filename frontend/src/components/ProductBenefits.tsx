@@ -3,16 +3,17 @@ import { CheckCircle2 } from "lucide-react";
 import styles from "../styles/ProductDetail.module.css";
 
 type ProductBenefitsProps = {
+  eyebrow?: string;
   title: string;
   items: string[];
 };
 
-export function ProductBenefits({ title, items }: ProductBenefitsProps) {
+export function ProductBenefits({ eyebrow = "Ключевые возможности", title, items }: ProductBenefitsProps) {
   return (
     <section className={styles.block}>
       <div className="container">
         <div className={styles.blockHeader}>
-          <span>Ключевые возможности</span>
+          <span>{eyebrow}</span>
           <h2>{title}</h2>
         </div>
         <div className={styles.cardGrid}>
