@@ -74,12 +74,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 168px;
-  height: 42px;
+  width: 138px;
+  height: 44px;
   overflow: hidden;
   border: 1px solid rgba(126, 231, 255, 0.24);
   border-radius: 8px;
-  padding: 5px 10px;
+  padding: 0;
   background: #ffffff;
   transition:
     width 220ms ease,
@@ -89,8 +89,8 @@
 }
 
 .headerScrolled .logo {
-  width: 126px;
-  height: 36px;
+  width: 124px;
+  height: 40px;
   border-color: rgba(33, 199, 238, 0.14);
   border-radius: 999px;
 }
@@ -187,13 +187,13 @@
   }
 
   .logo {
-    width: 142px;
-    height: 38px;
+    width: 128px;
+    height: 40px;
   }
 
   .headerScrolled .logo {
     width: 116px;
-    height: 34px;
+    height: 38px;
   }
 
   .contactButton {

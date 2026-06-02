@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { Clock3, CreditCard, QrCode, ReceiptText, Smartphone, UsersRound } from "lucide-react";
 
-export const PRODUCT_IMAGE_FALLBACK = "/AvaTech_logo_optimized.png";
+export const PRODUCT_IMAGE_FALLBACK = "/logo_avtch/dark/Logo-AvaTech-dark.png";
 
 export type ProductGalleryGroup = {
   title: string;

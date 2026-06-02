@@ -9,7 +9,7 @@ export function Footer() {
       <div className={`container ${styles.footerGrid}`}>
         <div>
           <Link className={styles.footerLogo} to="/" aria-label="AvaTech">
-            AvaTech
+            <img src="/logo_avtch/dark/Logo-AvaTech-dark-without-bg.svg" alt="AvaTech" />
           </Link>
           <p>
             IT-компания из экосистемы Avatariya. Разрабатываем и внедряем цифровые продукты для парков развлечений,

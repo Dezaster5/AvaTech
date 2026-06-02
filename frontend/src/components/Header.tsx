@@ -22,7 +22,7 @@ export function Header() {
     <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ""}`}>
       <div className={`container ${styles.inner}`}>
         <Link className={styles.logo} to="/" aria-label="AvaTech">
-          <img className={styles.logoImage} src="/AvaTech_logo_optimized.png" alt="AvaTech" />
+          <img className={styles.logoImage} src="/logo_avtch/white/Logo-AvaTech-white-without-bg.svg" alt="AvaTech" />
         </Link>
 
         <nav className={styles.nav} aria-label="Основная навигация">
