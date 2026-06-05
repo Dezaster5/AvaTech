@@ -19,10 +19,12 @@ Production-ready стартовый проект для корпоративно
 │   ├── src/styles/          # CSS Modules и global styles
 │   ├── Dockerfile
 │   └── nginx.conf
-├── deploy/nginx/            # пример nginx-конфига для avtch.io + SSL
+├── deploy/nginx/            # nginx-конфиги для avtch.io: HTTP bootstrap + SSL
+├── deploy/ubuntu/README.md  # пошаговый деплой на чистый Ubuntu VPS
 ├── deploy/TEST_DEPLOY.md    # тестовый деплой на Render + Vercel + Neon
 ├── render.yaml              # Render blueprint для backend
 ├── docker-compose.yml
+├── docker-compose.prod.yml
 ├── .env.example
 └── README.md
 ```
@@ -95,11 +97,14 @@ EMAIL_PORT=587
 EMAIL_HOST_USER=no-reply@avtch.io
 EMAIL_HOST_PASSWORD=secure-password
 EMAIL_USE_TLS=True
+EMAIL_TIMEOUT=15
 DEFAULT_FROM_EMAIL=AvaTech <no-reply@avtch.io>
 CONTACT_RECEIVER_EMAIL=info@avtch.io
+CONTACT_RECEIVER_EMAILS=info@avtch.io
 ```
 
 Для локальной разработки можно оставить `EMAIL_HOST` пустым в `backend/.env`: при `DJANGO_DEBUG=True` письма будут выводиться в консоль Django.
+В письме используется `Reply-To` с email клиента, поэтому отвечать на заявку можно прямо из почтового клиента.
 
 ## API заявки
 
@@ -149,14 +154,18 @@ gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3
 
 ## VPS deployment notes
 
-1. Настроить DNS `A`/`AAAA` записи для `avtch.io` и `www.avtch.io`.
-2. Скопировать `.env.example` в `.env`, задать production значения и SMTP.
-3. Запустить `docker compose up -d --build`.
-4. Выпустить SSL-сертификат через Certbot для `avtch.io` и `www.avtch.io`.
-5. Использовать пример `deploy/nginx/avtch.io.conf`, где frontend доступен на `127.0.0.1:8080`, backend на `127.0.0.1:8000`.
-6. Добавить Google Analytics и Яндекс Метрику в `frontend/index.html` после получения идентификаторов счётчиков.
+Подробная инструкция для чистого Ubuntu-сервера лежит в `deploy/ubuntu/README.md`.
 
-Для production рекомендуется установить `DJANGO_DEBUG=False`, сложный `DJANGO_SECRET_KEY`, строгие `DJANGO_ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS` и реальные SMTP-данные.
+Коротко:
+
+```bash
+cp .env.example .env
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Production compose публикует backend и frontend только на `127.0.0.1`, а наружный доступ должен идти через системный Nginx. Для первого запуска и выпуска SSL используйте `deploy/nginx/avtch.io.http.conf`, после выпуска сертификата замените его на `deploy/nginx/avtch.io.conf`.
+
+Для production обязательно установить `DJANGO_DEBUG=False`, сложный `DJANGO_SECRET_KEY`, строгие `DJANGO_ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, `CORS_ALLOWED_ORIGINS` и реальные SMTP-данные.
 
 ## Test deploy: Render + Vercel + Neon
 
@@ -170,7 +179,8 @@ DATABASE_URL=postgresql://USER:PASSWORD@HOST/DB?sslmode=require
 DJANGO_ALLOWED_HOSTS=<your-render-service>.onrender.com
 CORS_ALLOWED_ORIGINS=https://<your-vercel-app>.vercel.app
 CSRF_TRUSTED_ORIGINS=https://<your-render-service>.onrender.com,https://<your-vercel-app>.vercel.app
-EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+CONTACT_RECEIVER_EMAILS=info@avtch.io
 
 # Vercel frontend
 VITE_API_URL=https://<your-render-service>.onrender.com/api

@@ -23,6 +23,10 @@ def env_list(name: str, default: str = "") -> list[str]:
     return [item.strip() for item in value.split(",") if item.strip()]
 
 
+def env_str(name: str, default: str = "") -> str:
+    return os.getenv(name, default).strip()
+
+
 def postgres_database_from_url(database_url: str) -> dict[str, object]:
     parsed = urlparse(database_url)
     query = parse_qs(parsed.query)
@@ -61,6 +65,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -124,6 +129,14 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -138,21 +151,27 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser"],
 }
 
-EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_BACKEND = env_str("EMAIL_BACKEND")
 if not EMAIL_BACKEND:
     EMAIL_BACKEND = (
         "django.core.mail.backends.console.EmailBackend"
         if DEBUG and not os.getenv("EMAIL_HOST")
         else "django.core.mail.backends.smtp.EmailBackend"
     )
-EMAIL_HOST = os.getenv("EMAIL_HOST", "")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_HOST = env_str("EMAIL_HOST")
+if "://" in EMAIL_HOST:
+    parsed_email_host = urlparse(EMAIL_HOST)
+    EMAIL_HOST = parsed_email_host.hostname or EMAIL_HOST
+EMAIL_PORT = int(env_str("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = env_str("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env_str("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
 EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", False)
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "AvaTech <no-reply@avtch.io>")
-CONTACT_RECEIVER_EMAIL = os.getenv("CONTACT_RECEIVER_EMAIL", "info@avtch.io")
+EMAIL_TIMEOUT = int(env_str("EMAIL_TIMEOUT", "15"))
+DEFAULT_FROM_EMAIL = env_str("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "AvaTech <no-reply@avtch.io>")
+_contact_receiver_email = env_str("CONTACT_RECEIVER_EMAIL", "info@avtch.io")
+CONTACT_RECEIVER_EMAILS = env_list("CONTACT_RECEIVER_EMAILS", _contact_receiver_email) or ["info@avtch.io"]
+CONTACT_RECEIVER_EMAIL = CONTACT_RECEIVER_EMAILS[0]
 
 CONTACT_RATE_LIMIT_COUNT = int(os.getenv("CONTACT_RATE_LIMIT_COUNT", "5"))
 CONTACT_RATE_LIMIT_WINDOW_SECONDS = int(os.getenv("CONTACT_RATE_LIMIT_WINDOW_SECONDS", "900"))

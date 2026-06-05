@@ -9,6 +9,8 @@ class ContactRequest(models.Model):
     comment = models.TextField("Комментарий", blank=True)
     ip_address = models.GenericIPAddressField("IP-адрес", blank=True, null=True)
     user_agent = models.TextField("User-Agent", blank=True)
+    email_sent_at = models.DateTimeField("Email отправлен", blank=True, null=True)
+    email_error = models.TextField("Ошибка отправки email", blank=True)
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
 
     class Meta:

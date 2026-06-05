@@ -4,6 +4,8 @@ import time
 from django.conf import settings
 from django.core.cache import cache
 from django.db import transaction
+from django.utils import timezone
+from django.utils.text import Truncator
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -63,13 +65,28 @@ class ContactRequestCreateView(APIView):
         try:
             with transaction.atomic():
                 contact_request = serializer.save(ip_address=ip_address, user_agent=user_agent)
-                send_contact_email(contact_request)
         except Exception:
-            logger.exception("Contact request processing failed")
+            logger.exception("Contact request save failed")
+            return Response(
+                {"detail": "Не удалось сохранить заявку. Попробуйте позже или напишите на info@avtch.io."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
+        try:
+            send_contact_email(contact_request)
+        except Exception as exc:
+            email_error = Truncator(str(exc) or exc.__class__.__name__).chars(1000)
+            contact_request.email_error = email_error
+            contact_request.save(update_fields=["email_error"])
+            logger.exception("Contact request email delivery failed: %s", contact_request.pk)
             return Response(
                 {"detail": "Не удалось отправить заявку. Попробуйте позже или напишите на info@avtch.io."},
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,
             )
+
+        contact_request.email_sent_at = timezone.now()
+        contact_request.email_error = ""
+        contact_request.save(update_fields=["email_sent_at", "email_error"])
 
         return Response(
             {"detail": "Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время."},
