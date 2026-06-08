@@ -230,6 +230,16 @@ curl -X POST https://avtch.io/api/contact/ \
 
 Первый запрос должен вернуть JSON от Next.js, например ошибку валидации про имя и телефон. Если вместо JSON приходит HTML `404`, значит системный Nginx не перезагружен после обновления конфига.
 
+Проверить, что dotfiles и `.env`-backup пути не уходят во frontend:
+
+```bash
+curl -I https://avtch.io/.env
+curl -I https://avtch.io/api/.env
+curl -I https://avtch.io/www/.env.old
+```
+
+Ожидаемый результат для всех трёх запросов: `404`.
+
 Проверить внутреннее сохранение диагностики из Next.js в Django admin:
 
 ```bash
@@ -258,3 +268,4 @@ cat backup_YYYY-MM-DD.sql | docker compose -f docker-compose.prod.yml exec -T db
 - В admin у заявки видны статус Bitrix24, Contact ID, Deal ID, JSON-ответы Bitrix, JSON запроса/ответа API route и статус email.
 - На `info@avtch.io` приходит письмо.
 - Продуктовые страницы открываются при прямом переходе по URL.
+- `/.env`, `/api/.env`, `/www/.env.old` возвращают `404`.
