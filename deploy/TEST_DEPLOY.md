@@ -27,6 +27,7 @@ Required environment variables:
 DJANGO_DEBUG=False
 DJANGO_SECRET_KEY=<generated-secret>
 DJANGO_ALLOWED_HOSTS=<your-render-service>.onrender.com
+DJANGO_ADMIN_PATH=control-<random-hex>/
 CSRF_TRUSTED_ORIGINS=https://<your-render-service>.onrender.com,https://<your-vercel-app>.vercel.app
 CORS_ALLOWED_ORIGINS=https://<your-vercel-app>.vercel.app
 DATABASE_URL=postgresql://USER:PASSWORD@HOST/DB?sslmode=require

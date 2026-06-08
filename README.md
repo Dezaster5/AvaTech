@@ -80,7 +80,7 @@ docker compose up --build
 
 Frontend: `http://localhost:8080`
 Backend healthcheck: `http://localhost:8000/api/health/`
-Admin: `http://localhost:8000/admin/`
+Admin: `http://localhost:8000/control-local-dev/` или путь из `DJANGO_ADMIN_PATH`.
 
 Создание администратора в Docker:
 
@@ -195,6 +195,7 @@ Production compose публикует backend и frontend только на `127
 # Render backend
 DATABASE_URL=postgresql://USER:PASSWORD@HOST/DB?sslmode=require
 DJANGO_ALLOWED_HOSTS=<your-render-service>.onrender.com
+DJANGO_ADMIN_PATH=control-<random-hex>/
 CORS_ALLOWED_ORIGINS=https://<your-vercel-app>.vercel.app
 CSRF_TRUSTED_ORIGINS=https://<your-render-service>.onrender.com,https://<your-vercel-app>.vercel.app
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend

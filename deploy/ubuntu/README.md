@@ -80,6 +80,7 @@ nano .env
 DJANGO_SECRET_KEY=<PASTE_SECRET_FROM_OPENSSL>
 DJANGO_DEBUG=False
 DJANGO_ALLOWED_HOSTS=avtch.io,www.avtch.io,<SERVER_IP>
+DJANGO_ADMIN_PATH=<CONTROL_RANDOM_ADMIN_PATH>
 CSRF_TRUSTED_ORIGINS=https://avtch.io,https://www.avtch.io
 CORS_ALLOWED_ORIGINS=https://avtch.io,https://www.avtch.io
 
@@ -120,9 +121,13 @@ DJANGO_SUBMISSION_LOG_TOKEN=<LONG_RANDOM_INTERNAL_TOKEN>
 ```bash
 openssl rand -base64 48
 openssl rand -base64 32
+printf 'control-%s/\n' "$(openssl rand -hex 24)"
 ```
 
-Первое значение используйте для `DJANGO_SECRET_KEY`, второе можно использовать как `POSTGRES_PASSWORD`. Ещё одно отдельное значение задайте одинаково в `INTERNAL_API_TOKEN` и `DJANGO_SUBMISSION_LOG_TOKEN`.
+Первое значение используйте для `DJANGO_SECRET_KEY`, второе можно использовать как `POSTGRES_PASSWORD`. Третье значение используйте для `DJANGO_ADMIN_PATH`.
+Ещё одно отдельное значение задайте одинаково в `INTERNAL_API_TOKEN` и `DJANGO_SUBMISSION_LOG_TOKEN`.
+
+`DJANGO_ADMIN_PATH` должен начинаться с `control-`, содержать случайную строку и заканчиваться `/`, например `control-5f1c.../`. Не коммитьте это значение в GitHub.
 
 Для Mail.ru нужен пароль приложения, а не обычный пароль от почты.
 
@@ -182,7 +187,7 @@ certbot renew --dry-run
 ```text
 https://avtch.io
 https://www.avtch.io
-https://avtch.io/admin/
+https://avtch.io/<CONTROL_RANDOM_ADMIN_PATH>
 ```
 
 ## 9. Обновление после нового push
@@ -199,6 +204,7 @@ systemctl reload nginx
 
 Backend при старте сам выполняет `migrate` и `collectstatic`.
 Системный Nginx нужно перезагружать отдельно, потому что route `/api/bitrix` обслуживает Next.js frontend, а `/api/contact/` и `/api/health/` остаются на Django backend.
+Admin доступен только по секретному пути из `DJANGO_ADMIN_PATH`; старый `/admin/` не проксируется на Django и не должен открывать админку.
 
 ## 10. Логи и диагностика
 
@@ -246,7 +252,7 @@ cat backup_YYYY-MM-DD.sql | docker compose -f docker-compose.prod.yml exec -T db
 
 - Главная страница открывается по HTTPS.
 - `/api/health/` возвращает JSON.
-- `/admin/` открывается со стилями.
+- Секретный admin URL из `DJANGO_ADMIN_PATH` открывается со стилями.
 - Форма заявки создаёт контакт/сделку в Bitrix24 и сохраняет запись в admin.
 - В admin у заявки видны статус Bitrix24, Contact ID, Deal ID, JSON-ответы Bitrix, JSON запроса/ответа API route и статус email.
 - На `info@avtch.io` приходит письмо.

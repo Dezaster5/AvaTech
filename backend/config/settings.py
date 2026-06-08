@@ -56,6 +56,8 @@ for internal_host in ("localhost", "127.0.0.1", "backend", "frontend", "host.doc
 if render_hostname := os.getenv("RENDER_EXTERNAL_HOSTNAME"):
     ALLOWED_HOSTS.append(render_hostname)
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", "https://avtch.io,https://www.avtch.io")
+_admin_path = env_str("DJANGO_ADMIN_PATH", "control-local-dev/").strip("/")
+DJANGO_ADMIN_PATH = f"{_admin_path}/" if _admin_path else "control-local-dev/"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
