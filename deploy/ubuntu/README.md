@@ -192,9 +192,13 @@ cd /var/www/avtch.io
 git pull
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml ps
+cp /var/www/avtch.io/deploy/nginx/avtch.io.conf /etc/nginx/sites-available/avtch.io.conf
+nginx -t
+systemctl reload nginx
 ```
 
 Backend при старте сам выполняет `migrate` и `collectstatic`.
+Системный Nginx нужно перезагружать отдельно, потому что route `/api/bitrix` обслуживает Next.js frontend, а `/api/contact/` и `/api/health/` остаются на Django backend.
 
 ## 10. Логи и диагностика
 
@@ -208,10 +212,16 @@ journalctl -u nginx -f
 Проверить форму заявки:
 
 ```bash
+curl -i -X POST https://avtch.io/api/bitrix \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
 curl -X POST https://avtch.io/api/contact/ \
   -H "Content-Type: application/json" \
   -d '{"name":"Test","company":"AvaTech","phone":"+77019712777","email":"test@example.com","comment":"Test deploy request"}'
 ```
+
+Первый запрос должен вернуть JSON от Next.js, например ошибку валидации про имя и телефон. Если вместо JSON приходит HTML `404`, значит системный Nginx не перезагружен после обновления конфига.
 
 Проверить внутреннее сохранение диагностики из Next.js в Django admin:
 
