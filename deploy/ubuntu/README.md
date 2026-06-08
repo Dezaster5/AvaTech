@@ -205,6 +205,7 @@ systemctl reload nginx
 Backend при старте сам выполняет `migrate` и `collectstatic`.
 Системный Nginx нужно перезагружать отдельно, потому что route `/api/bitrix` обслуживает Next.js frontend, а `/api/contact/` и `/api/health/` остаются на Django backend.
 Admin доступен только по секретному пути из `DJANGO_ADMIN_PATH`; старый `/admin/` не проксируется на Django и не должен открывать админку.
+Секретный путь должен начинаться с `control-`, потому что системный Nginx отправляет в Django только URL с этим префиксом. Если по admin URL видите Next.js страницу `This page could not be found`, значит Nginx не перезагружен или `DJANGO_ADMIN_PATH` не начинается с `control-`.
 
 ## 10. Логи и диагностика
 
