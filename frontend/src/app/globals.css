@@ -224,11 +224,11 @@ body {
 }
 
 .turnstile-box {
-  min-height: 65px;
+  min-height: 0;
   width: 100%;
   overflow: hidden;
   border-radius: 0.75rem;
-  background: var(--card);
+  background: transparent;
 }
 
 .turnstile-box > div {
@@ -237,6 +237,8 @@ body {
 
 .turnstile-box iframe {
   max-width: 100%;
+  border-radius: 0.75rem;
+  background: var(--card);
 }
 
 @media (max-width: 360px) {
@@ -249,7 +251,7 @@ body {
 
 @media (max-width: 340px) {
   .turnstile-box {
-    min-height: 56px;
+    min-height: 0;
   }
 
   .turnstile-box > div {

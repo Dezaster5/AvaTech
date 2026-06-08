@@ -70,7 +70,7 @@ export function Contact() {
       return;
     }
     if (isTurnstileEnabled && !captchaToken) {
-      setError("Пройдите проверку «вы не робот» и отправьте форму ещё раз.");
+      setError("Проверка безопасности ещё выполняется. Подождите пару секунд и отправьте форму ещё раз.");
       setLoading(false);
       return;
     }
@@ -286,7 +286,7 @@ export function Contact() {
                         }}
                         options={{
                           language: "ru",
-                          appearance: "always",
+                          appearance: "interaction-only",
                           size: "flexible",
                           theme: "light",
                         }}
