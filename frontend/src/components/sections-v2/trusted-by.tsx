@@ -25,7 +25,7 @@ const partners = [
 export function TrustedBy() {
   return (
     <section id="trusted" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 md:py-28">
         {/* Бейдж — вынесен наверх, над сплитом */}
         <Badge variant="outline" className="h-auto gap-2 px-3 py-1 text-sm">
           <span className="size-1.5 rounded-full bg-brand" />
@@ -60,7 +60,7 @@ export function TrustedBy() {
                 rel="noopener noreferrer"
                 aria-label={`${partner.name} — перейти на сайт`}
                 style={{ animationDelay: `${i * 120}ms` }}
-                className="group flex h-20 w-72 items-center justify-center rounded-2xl px-10 transition duration-300 animate-in fade-in slide-in-from-bottom-2 fill-mode-both hover:-translate-y-0.5 hover:bg-white hover:shadow-xl hover:shadow-black/5"
+                className="group flex h-20 w-full max-w-72 items-center justify-center rounded-2xl px-8 transition duration-300 animate-in fade-in slide-in-from-bottom-2 fill-mode-both hover:-translate-y-0.5 hover:bg-white hover:shadow-xl hover:shadow-black/5 sm:px-10"
               >
                 <Image
                   src={partner.logo}

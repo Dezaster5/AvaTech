@@ -12,7 +12,7 @@ const navLinks = [
 export function SiteFooter() {
   return (
     <footer className="bg-foreground text-background">
-      <div className="mx-auto max-w-6xl px-6 py-14 md:py-16">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 md:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr]">
           {/* Бренд */}
           <div className="max-w-sm">

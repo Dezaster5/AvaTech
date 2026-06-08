@@ -12,15 +12,15 @@ export function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgb(18_25_38/0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgb(18_25_38/0.035)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_75%_55%_at_50%_0%,black,transparent_78%)] [-webkit-mask-image:radial-gradient(ellipse_75%_55%_at_50%_0%,black,transparent_78%)]" />
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 pt-16 pb-12 md:pt-24 md:pb-16">
+      <div className="mx-auto max-w-6xl px-4 pt-12 pb-12 sm:px-6 sm:pt-16 md:pt-24 md:pb-16">
         {/* Строка доверия вместо карусели логотипов. fill-mode-both = блок скрыт до старта анимации */}
-        <div className="mb-10 flex items-center gap-2 text-sm text-muted-foreground animate-in fade-in slide-in-from-bottom-2 fill-mode-both duration-500">
+        <div className="mb-8 flex items-center gap-2 text-sm text-muted-foreground animate-in fade-in slide-in-from-bottom-2 fill-mode-both duration-500 sm:mb-10">
           <span className="inline-block size-1.5 rounded-full bg-brand" />
           Участник Astana Hub · экосистема Avatariya
         </div>
 
         {/* Заголовок на всю ширину — чтобы влезал крупным шрифтом в 2 строки */}
-        <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 delay-100 sm:text-5xl">
+        <h1 className="text-[2.35rem] font-semibold leading-[1.08] tracking-tight animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 delay-100 min-[380px]:text-4xl sm:text-5xl">
           Автоматизируем продажи,
           <br />
           персонал и <span className="text-brand">гостевой опыт</span>
@@ -36,7 +36,7 @@ export function Hero() {
           </div>
 
           {/* Кнопки (прижаты к низу и вправо) */}
-          <div className="lg:col-span-5 flex flex-wrap items-center gap-3 lg:justify-end animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 delay-200">
+          <div className="flex flex-col items-stretch gap-3 animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 delay-200 min-[420px]:flex-row min-[420px]:items-center lg:col-span-5 lg:justify-end">
             <a
               href="#products"
               className={cn(buttonVariants({ size: "lg" }), "h-11 px-5 text-base")}

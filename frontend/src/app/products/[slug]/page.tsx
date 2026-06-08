@@ -96,7 +96,7 @@ export default async function ProductPage({
             aria-hidden
             className="pointer-events-none absolute -top-40 right-0 -z-10 size-[36rem] rounded-full bg-brand/10 blur-3xl"
           />
-          <div className="mx-auto max-w-6xl px-6 py-14 md:py-20">
+          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 md:py-20">
             <Link
               href="/#products"
               className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -108,13 +108,13 @@ export default async function ProductPage({
             <div className="mt-8 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
               {/* Текст слева */}
               <div>
-                <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
+                <h1 className="text-[2.35rem] font-semibold leading-[1.08] tracking-tight min-[380px]:text-4xl sm:text-5xl">
                   {product.name}
                 </h1>
                 <p className="mt-5 max-w-xl text-lg text-muted-foreground text-pretty">
                   {product.tagline} {product.subtitle}
                 </p>
-                <div className="mt-8 flex flex-wrap items-center gap-3">
+                <div className="mt-8 flex flex-col items-stretch gap-3 min-[440px]:flex-row min-[440px]:items-center">
                   {/* Якорь относительный — скроллит вниз к форме НА ЭТОЙ же
                       странице продукта (ProductCta, id="contact-form") */}
                   <a
@@ -154,12 +154,12 @@ export default async function ProductPage({
             {/* Булеты-фичи — строкой во всю ширину hero под мокапом.
                 2 колонки на мобилке, 4 на десктопе; лёгкое парение со сдвигом фаз.
                 Иконка слева, текст по центру относительно неё (items-center). */}
-            <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <ul className="mt-10 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:grid-cols-4">
               {floats.map((f, i) => (
                 <li
                   key={f.title}
                   style={{ animation: floatAnim[i] }}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5"
+                  className="flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-3.5 sm:px-4"
                 >
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand/10">
                     <f.icon className="size-4.5 text-brand" strokeWidth={1.75} />
@@ -175,7 +175,7 @@ export default async function ProductPage({
 
         {/* ───────── Что делает (текст «проявляется» при скролле) ───────── */}
         <section className="border-b border-border/60">
-          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 md:py-28">
             <WhatItDoes
               text={product.whatItDoes}
               accent={product.whatItDoesAccent}
@@ -185,7 +185,7 @@ export default async function ProductPage({
 
         {/* ───────── Функции (2 колонки: заголовок | список) ───────── */}
         <section className="border-b border-border/60">
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
             <div className="grid gap-10 lg:grid-cols-[11fr_9fr] lg:gap-16">
               {/* Левая колонка — заголовок, прилипает при скролле списка.
                  Колонки заданы как 11fr : 9fr = ровно 55% / 45% (заголовок шире). */}
@@ -250,12 +250,12 @@ export default async function ProductPage({
             Сверху — сегменты аудитории иконками в ряд (кому подходит),
             ниже — панель результата со свечением (что это даёт). */}
         <section className="border-b border-border/60">
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
             {/* Часть 1 — аудитория: «кому подходит» */}
             <h2 className="text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-4xl">
               Для кого подходит
             </h2>
-            <ul className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <ul className="mt-8 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 sm:mt-10 lg:grid-cols-4">
               {product.audience.map((seg) => (
                 <li
                   key={seg.label}
@@ -272,7 +272,7 @@ export default async function ProductPage({
             </ul>
 
             {/* Часть 2 — результат: панель с мягким брендовым свечением */}
-            <div className="relative mt-12 overflow-hidden rounded-3xl border border-border bg-gradient-to-b from-brand/[0.05] to-transparent px-6 py-12 sm:px-10 sm:py-14">
+            <div className="relative mt-12 overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-brand/[0.05] to-transparent px-4 py-8 sm:rounded-3xl sm:px-10 sm:py-14">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -top-24 left-1/2 h-48 w-[40rem] max-w-full -translate-x-1/2 rounded-full bg-brand/10 blur-3xl"
@@ -328,7 +328,7 @@ export default async function ProductPage({
 
         {/* ───────── Интерфейсы (текст слева, галерея справа) ───────── */}
         <section className="border-b border-border/60">
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
             <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
               {/* Левая колонка — заголовок и описание */}
               <div className="lg:col-span-5">

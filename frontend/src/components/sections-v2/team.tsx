@@ -78,7 +78,7 @@ const roles = [
 export function Team() {
   return (
     <section id="team" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 md:py-28">
         {/* Шапка блока — по левому краю */}
         <div className="max-w-2xl">
           <Badge variant="outline" className="h-auto gap-2 px-3 py-1 text-sm">
@@ -95,7 +95,7 @@ export function Team() {
         </div>
 
         {/* 4 позиции */}
-        <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:mt-14 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
           {roles.map((r) => (
             <div
               key={r.title}

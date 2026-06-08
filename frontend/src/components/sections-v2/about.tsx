@@ -30,7 +30,7 @@ const points = [
 export function About() {
   return (
     <section id="about" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 md:py-28">
         {/* Верхний ряд: фото слева, текст справа. items-stretch → колонки равной высоты */}
         <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Фото пространства развлекательного центра — растягивается на всю высоту колонки */}
@@ -77,7 +77,7 @@ export function About() {
         </div>
 
         {/* Нижний ряд: 4 пункта с линиями и иконками */}
-        <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 md:mt-20 lg:grid-cols-4 lg:gap-x-6">
+        <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:mt-16 sm:grid-cols-2 md:mt-20 lg:grid-cols-4 lg:gap-x-6">
           {points.map((p) => (
             <div key={p.title} className="border-t border-border pt-5">
               <div className="flex items-center gap-2.5">

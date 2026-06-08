@@ -9,6 +9,20 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@supports not (overflow-x: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
 /* Целевая секция якоря не должна заехать под прилипший хедер (h-16 = 64px) — даём отступ сверху */
 :target {
   scroll-margin-top: 5rem;
@@ -194,4 +208,52 @@ html {
 .PhoneInput .PhoneInputCountryIcon {
   width: 1.4rem;
   height: auto;
+}
+
+.PhoneInput .PhoneInputCountry {
+  min-width: max-content;
+}
+
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select,
+  .PhoneInput .PhoneInputInput {
+    font-size: 16px;
+  }
+}
+
+.turnstile-box {
+  min-height: 65px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--card);
+}
+
+.turnstile-box > div {
+  max-width: 100%;
+}
+
+.turnstile-box iframe {
+  max-width: 100%;
+}
+
+@media (max-width: 360px) {
+  .turnstile-box > div {
+    transform: scale(0.9);
+    transform-origin: left top;
+    width: 111.12% !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .turnstile-box {
+    min-height: 56px;
+  }
+
+  .turnstile-box > div {
+    transform: scale(0.82);
+    width: 121.96% !important;
+  }
 }

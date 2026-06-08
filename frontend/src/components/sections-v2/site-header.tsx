@@ -28,10 +28,10 @@ const PHONE = "+7 701 971 27 77";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6">
         {/* Логотип AvaTech */}
-        <Link href="/" aria-label="AvaTech — на главную" className="text-foreground">
-          <Logo className="h-6" />
+        <Link href="/" aria-label="AvaTech — на главную" className="min-w-0 text-foreground">
+          <Logo className="h-5 w-auto sm:h-6" />
         </Link>
 
         {/* Навигация — скрыта на мобильных, видна с md */}
@@ -48,7 +48,7 @@ export function SiteHeader() {
         </nav>
 
         {/* Правый блок: телефон + кнопка + бургер */}
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <a
             href="tel:+77019712777"
             className="hidden items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground lg:inline-flex"
@@ -59,7 +59,13 @@ export function SiteHeader() {
           {/* Ссылка, стилизованная как кнопка (Base UI Button не умеет asChild).
               Якорь ОТНОСИТЕЛЬНЫЙ (#contact-form): на лендинге ведёт к форме
               лендинга, на странице продукта — к её собственной форме (тот же id). */}
-          <a href="#contact-form" className={cn(buttonVariants({ size: "lg" }), "h-9 px-4")}>
+          <a
+            href="#contact-form"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "h-9 px-3 text-xs sm:px-4 sm:text-sm max-[360px]:hidden",
+            )}
+          >
             Связаться
           </a>
 
@@ -70,7 +76,7 @@ export function SiteHeader() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="md:hidden"
+                  className="size-9 md:hidden"
                   aria-label="Открыть меню"
                 />
               }

@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { sanitizeName, isValidEmail } from "@/lib/form-masks";
 import { detectCountry } from "@/lib/detect-country";
+import { readApiResult } from "@/lib/api-response";
 
 const fieldClass =
   "w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm outline-none transition focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/30 placeholder:text-muted-foreground";
@@ -80,7 +81,7 @@ export function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = await response.json();
+      const result = await readApiResult(response);
 
       if (response.ok && result.success) {
         setSubmitted(true);
@@ -105,10 +106,10 @@ export function Contact() {
 
   return (
     <section id="contacts">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-3 py-12 sm:px-6 sm:py-16 md:py-28">
         {/* Navy панель-«остров» */}
-        <div className="overflow-hidden rounded-3xl bg-foreground px-6 py-12 sm:px-10 sm:py-14 lg:px-16">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="overflow-hidden rounded-2xl bg-foreground px-3 py-7 sm:rounded-3xl sm:px-10 sm:py-14 lg:px-16">
+          <div className="grid min-w-0 gap-8 lg:grid-cols-2 lg:items-center lg:gap-16">
             {/* Левая колонка — контакты (белый текст на navy) */}
             <div className="text-background">
               <Badge
@@ -168,7 +169,7 @@ export function Contact() {
             {/* Правая колонка — форма (белая карточка) */}
             <div
               id="contact-form"
-              className="rounded-2xl bg-card p-6 text-foreground sm:p-8"
+              className="min-w-0 rounded-2xl bg-card p-3 text-foreground min-[380px]:p-4 sm:p-8"
             >
               {submitted ? (
                 <div className="flex h-full min-h-[320px] flex-col items-center justify-center text-center">
@@ -181,7 +182,7 @@ export function Contact() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="flex min-w-0 flex-col gap-4">
                   {/* Honeypot: ловушка для ботов. Спрятано от людей (off-screen),
                       убрано из таб-навигации и автозаполнения. Не трогать. */}
                   <input
@@ -229,7 +230,7 @@ export function Contact() {
                     {/* Международный телефон: флаг + код страны определяются
                         автоматически (по IP и по вводу), формат — под страну.
                         Обёртка повторяет вид остальных полей формы. */}
-                    <div className="mt-1.5 flex w-full items-center rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm transition focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/30">
+                    <div className="mt-1.5 flex w-full min-w-0 items-center rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm transition focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/30">
                       <PhoneInput
                         id="phone"
                         international
@@ -270,7 +271,7 @@ export function Contact() {
                     />
                   </div>
                   {isTurnstileEnabled ? (
-                    <div className="min-h-[65px]">
+                    <div className="turnstile-box">
                       <Turnstile
                         ref={captchaRef}
                         siteKey={TURNSTILE_SITE_KEY}
@@ -283,7 +284,12 @@ export function Contact() {
                           setCaptchaToken(null);
                           setError("Проверка «вы не робот» не прошла. Обновите её и попробуйте снова.");
                         }}
-                        options={{ language: "ru", appearance: "always" }}
+                        options={{
+                          language: "ru",
+                          appearance: "always",
+                          size: "flexible",
+                          theme: "light",
+                        }}
                       />
                     </div>
                   ) : (

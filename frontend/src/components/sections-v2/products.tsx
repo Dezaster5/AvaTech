@@ -21,7 +21,7 @@ function CardArrow() {
 export function Products() {
   return (
     <section id="products" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 md:py-28">
         {/* Шапка: бейдж сверху; ниже 2 колонки — заголовок | описание (по центру заголовка) */}
         <div>
           <Badge variant="outline" className="h-auto gap-2 px-3 py-1 text-sm">
@@ -43,7 +43,7 @@ export function Products() {
         </div>
 
         {/* Бенто-сетка */}
-        <div className="mt-12 grid grid-cols-1 gap-5 md:mt-14 lg:grid-cols-12">
+        <div className="mt-10 grid grid-cols-1 gap-5 md:mt-14 lg:grid-cols-12">
           {/* 1. Мобильное приложение — высокая плитка: текст сверху, мокап снизу */}
           <Link href="/products/guest-mobile-app" className={cn(tile, "relative flex-col lg:col-span-4 lg:row-span-2")}>
             <CardArrow />
@@ -77,7 +77,7 @@ export function Products() {
                 width={640}
                 height={1185}
                 sizes="320px"
-                className="w-[300px] [filter:drop-shadow(0_18px_32px_rgba(17,25,38,0.13))] transition-transform duration-500 group-hover:-translate-y-1"
+                className="w-[min(300px,78vw)] [filter:drop-shadow(0_18px_32px_rgba(17,25,38,0.13))] transition-transform duration-500 group-hover:-translate-y-1"
               />
             </div>
           </Link>
@@ -100,14 +100,14 @@ export function Products() {
               className="absolute inset-0 bg-gradient-to-r from-white from-[38%] to-transparent to-[88%]"
             />
             {/* текст слева */}
-            <div className="relative z-10 p-6 sm:max-w-[16rem] sm:self-start">
+            <div className="relative z-10 p-5 sm:max-w-[16rem] sm:p-6 sm:self-start">
               <h3 className="text-lg font-semibold">HR Tech-приложение</h3>
               <p className="mt-1 text-sm text-muted-foreground text-pretty">
                 Онбординг, обучение, задачи и аналитика по сотрудникам.
               </p>
             </div>
             {/* мокап справа */}
-            <div className="relative z-10 flex flex-1 items-center justify-center p-6 sm:pl-0">
+            <div className="relative z-10 flex flex-1 items-center justify-center p-5 sm:p-6 sm:pl-0">
               <Image
                 src="/products/hr-tech.png"
                 alt="HR Tech-приложение AvaTech: вход в систему Avatariya"
@@ -134,13 +134,13 @@ export function Products() {
               aria-hidden
               className="absolute inset-0 bg-gradient-to-b from-white from-[22%] to-transparent to-[88%]"
             />
-            <div className="relative z-10 p-6">
+            <div className="relative z-10 p-5 sm:p-6">
               <h3 className="text-lg font-semibold">QR-ресторан</h3>
               <p className="mt-1 text-sm text-muted-foreground text-pretty">
                 Заказ блюд по QR без официанта. Интеграции с Kaspi и iiko.
               </p>
             </div>
-            <div className="relative z-10 flex flex-1 items-end justify-center px-6 pt-2 pb-5">
+            <div className="relative z-10 flex flex-1 items-end justify-center px-5 pt-2 pb-5 sm:px-6">
               <Image
                 src="/products/qr-menu.png"
                 alt="QR-меню AvaTech: заказ блюд по QR-коду"
@@ -167,13 +167,13 @@ export function Products() {
               aria-hidden
               className="absolute inset-0 bg-gradient-to-b from-white from-[22%] to-transparent to-[88%]"
             />
-            <div className="relative z-10 p-6">
+            <div className="relative z-10 p-5 sm:p-6">
               <h3 className="text-lg font-semibold">Касса самообслуживания</h3>
               <p className="mt-1 text-sm text-muted-foreground text-pretty">
                 Гости оформляют покупки и билеты сами, без очереди к кассиру.
               </p>
             </div>
-            <div className="relative z-10 flex flex-1 items-end justify-center px-6 pt-2 pb-5">
+            <div className="relative z-10 flex flex-1 items-end justify-center px-5 pt-2 pb-5 sm:px-6">
               <Image
                 src="/products/kassa1.png"
                 alt="Касса самообслуживания AvaTech: самостоятельная покупка"
@@ -200,13 +200,13 @@ export function Products() {
               aria-hidden
               className="absolute inset-0 bg-gradient-to-r from-white from-[38%] to-transparent to-[88%]"
             />
-            <div className="relative z-10 p-6 sm:max-w-[16rem] sm:self-start">
+            <div className="relative z-10 p-5 sm:max-w-[16rem] sm:p-6 sm:self-start">
               <h3 className="text-lg font-semibold">AvaTracker</h3>
               <p className="mt-1 text-sm text-muted-foreground text-pretty">
                 Учёт рабочего времени и трекинг смен сотрудников.
               </p>
             </div>
-            <div className="relative z-10 flex flex-1 items-center justify-center p-6 sm:pl-0">
+            <div className="relative z-10 flex flex-1 items-center justify-center p-5 sm:p-6 sm:pl-0">
               <Image
                 src="/products/avatrack.png"
                 alt="AvaTracker AvaTech: просмотр отметок сотрудников"
@@ -233,13 +233,13 @@ export function Products() {
               aria-hidden
               className="absolute inset-0 bg-gradient-to-b from-white from-[22%] to-transparent to-[88%]"
             />
-            <div className="relative z-10 p-6">
+            <div className="relative z-10 p-5 sm:p-6">
               <h3 className="text-lg font-semibold">Мобильная касса</h3>
               <p className="mt-1 text-sm text-muted-foreground text-pretty">
                 Продажа билетов и услуг с телефона в любой точке зала.
               </p>
             </div>
-            <div className="relative z-10 flex flex-1 items-end justify-center px-6 pt-2 pb-5">
+            <div className="relative z-10 flex flex-1 items-end justify-center px-5 pt-2 pb-5 sm:px-6">
               <Image
                 src="/products/self-kassa.png"
                 alt="Мобильная касса AvaTech: продажа билетов"

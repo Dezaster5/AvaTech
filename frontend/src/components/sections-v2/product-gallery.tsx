@@ -26,13 +26,13 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
   return (
     <div className="mx-auto max-w-3xl">
       {/* Главное изображение */}
-      <div className="group relative h-[300px] w-full overflow-hidden rounded-2xl border border-border bg-card sm:h-[360px]">
+      <div className="group relative h-[clamp(230px,64vw,300px)] w-full overflow-hidden rounded-2xl border border-border bg-card sm:h-[360px]">
         <Image
           src={images[active]}
           alt={alt}
           fill
           sizes="(max-width: 768px) 90vw, 640px"
-          className="object-contain p-6"
+          className="object-contain p-3 sm:p-6"
         />
 
         {/* Прозрачная кнопка-оверлей: клик/Enter открывает лайтбокс */}
@@ -55,7 +55,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
               type="button"
               onClick={() => go(-1)}
               aria-label="Предыдущее изображение"
-              className="absolute left-3 top-1/2 z-30 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur transition hover:bg-background"
+              className="absolute left-2 top-1/2 z-30 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur transition hover:bg-background sm:left-3 sm:size-10"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -63,7 +63,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
               type="button"
               onClick={() => go(1)}
               aria-label="Следующее изображение"
-              className="absolute right-3 top-1/2 z-30 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur transition hover:bg-background"
+              className="absolute right-2 top-1/2 z-30 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur transition hover:bg-background sm:right-3 sm:size-10"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -104,7 +104,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             onClick={(e) => {
               if (e.target === e.currentTarget) setOpen(false);
             }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 outline-none transition duration-200 data-ending-style:opacity-0 data-starting-style:opacity-0"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 outline-none transition duration-200 data-ending-style:opacity-0 data-starting-style:opacity-0 sm:p-4"
           >
             <DialogTitle className="sr-only">{alt}</DialogTitle>
             <DialogDescription className="sr-only">
@@ -118,7 +118,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             <img
               src={images[active]}
               alt={alt}
-              className="h-auto max-h-[85vh] w-auto max-w-[90vw] object-contain"
+              className="h-auto max-h-[86dvh] w-auto max-w-[94vw] object-contain sm:max-h-[85vh] sm:max-w-[90vw]"
             />
 
             {count > 1 && (
@@ -127,7 +127,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
                   type="button"
                   onClick={() => go(-1)}
                   aria-label="Предыдущее изображение"
-                  className="absolute left-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+                  className="absolute left-2 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20 sm:left-4 sm:size-11"
                 >
                   <ChevronLeft className="size-5" />
                 </button>
@@ -135,7 +135,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
                   type="button"
                   onClick={() => go(1)}
                   aria-label="Следующее изображение"
-                  className="absolute right-4 top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+                  className="absolute right-2 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20 sm:right-4 sm:size-11"
                 >
                   <ChevronRight className="size-5" />
                 </button>
@@ -147,7 +147,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
 
             <DialogClose
               aria-label="Закрыть"
-              className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+              className="absolute right-3 top-3 flex size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20 sm:right-4 sm:top-4"
             >
               <X className="size-5" />
             </DialogClose>

@@ -45,7 +45,7 @@ const advantages = [
 export function Advantages() {
   return (
     <section id="advantages" className="border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 md:py-28">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           {/* Левая колонка — заголовок + интро (липкая на десктопе) */}
           <div className="lg:col-span-5 lg:sticky lg:top-24 lg:self-start">

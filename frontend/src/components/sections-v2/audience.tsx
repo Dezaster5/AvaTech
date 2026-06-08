@@ -54,7 +54,7 @@ type Item = (typeof audience)[number];
 // при наведении проявляются описание и кнопка «Связаться».
 function AudienceCard({ item }: { item: Item }) {
   return (
-    <article className="group relative h-[520px] w-[360px] shrink-0 snap-start overflow-hidden rounded-2xl">
+    <article className="group relative h-[460px] w-[min(360px,calc(100vw-2rem))] shrink-0 snap-start overflow-hidden rounded-2xl sm:h-[520px]">
       {/* фоновое фото */}
       <Image
         src={`/audience-v2/${item.slug}.webp`}
@@ -67,7 +67,7 @@ function AudienceCard({ item }: { item: Item }) {
       {/* затемняющий градиент снизу для читабельности */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
-      <div className="relative flex h-full flex-col justify-end p-6 text-white">
+      <div className="relative flex h-full flex-col justify-end p-5 text-white sm:p-6">
         <h3 className="text-xl font-semibold">{item.title}</h3>
         {/* описание + кнопка: схлопнуты по умолчанию, раскрываются на hover и выталкивают заголовок вверх */}
         <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover:mt-3 group-hover:grid-rows-[1fr] group-hover:opacity-100">
@@ -170,10 +170,10 @@ export function Audience() {
 
       {/* Мобильный/планшет: обычная горизонтальная прокрутка (свайп) */}
       <div className="lg:hidden">
-        <div className="mx-auto max-w-6xl px-6 pt-20">
+        <div className="mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-20">
           <Header />
         </div>
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-16 sm:px-6 sm:pb-20 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {audience.map((item) => (
             <AudienceCard key={item.slug} item={item} />
           ))}
