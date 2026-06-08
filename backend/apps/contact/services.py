@@ -35,6 +35,7 @@ def build_contact_email_messages(contact_request: ContactRequest) -> tuple[str, 
     subject_company = Truncator(contact_request.company).chars(80)
     subject = f"Новая заявка AvaTech #{contact_request.pk}: {subject_company}"
     comment = contact_request.comment or "Не указан"
+    client_email = contact_request.email or "Не указан"
 
     text_message = "\n".join(
         [
@@ -43,7 +44,7 @@ def build_contact_email_messages(contact_request: ContactRequest) -> tuple[str, 
             f"Имя: {contact_request.name}",
             f"Компания: {contact_request.company}",
             f"Телефон: {contact_request.phone}",
-            f"Email: {contact_request.email}",
+            f"Email: {client_email}",
             "",
             "Комментарий:",
             comment,
@@ -59,7 +60,7 @@ def build_contact_email_messages(contact_request: ContactRequest) -> tuple[str, 
         ("Имя", contact_request.name),
         ("Компания", contact_request.company),
         ("Телефон", contact_request.phone),
-        ("Email", contact_request.email),
+        ("Email", client_email),
         ("Комментарий", comment),
         ("IP", contact_request.ip_address or "не определён"),
         ("User-Agent", contact_request.user_agent or "не указан"),
@@ -96,12 +97,13 @@ def build_contact_email_messages(contact_request: ContactRequest) -> tuple[str, 
 def send_contact_email(contact_request: ContactRequest) -> None:
     validate_email_configuration()
     subject, text_message, html_message = build_contact_email_messages(contact_request)
+    reply_to = [contact_request.email] if contact_request.email else []
     email = EmailMultiAlternatives(
         subject=subject,
         body=text_message,
         from_email=settings.DEFAULT_FROM_EMAIL,
         to=get_contact_recipients(),
-        reply_to=[contact_request.email],
+        reply_to=reply_to,
         headers={"X-AvaTech-Contact-Request-ID": str(contact_request.pk)},
     )
     email.attach_alternative(html_message, "text/html")

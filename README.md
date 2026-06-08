@@ -1,6 +1,6 @@
 # AvaTech corporate website
 
-Production-ready стартовый проект для корпоративного сайта AvaTech на Django + React.
+Production-ready проект для корпоративного сайта AvaTech на Django + Next.js.
 
 ## Архитектура
 
@@ -12,13 +12,13 @@ Production-ready стартовый проект для корпоративно
 │   ├── Dockerfile
 │   ├── manage.py
 │   └── requirements.txt
-├── frontend/                # React + Vite + TypeScript
-│   ├── public/              # favicon, robots.txt, sitemap.xml, OG placeholder
+├── frontend/                # Next.js + React + TypeScript
+│   ├── public/              # изображения, product gallery, partner assets
+│   ├── src/app/             # App Router, SEO, product pages
 │   ├── src/components/      # секции сайта и UI-компоненты
-│   ├── src/data/            # контент сайта
-│   ├── src/styles/          # CSS Modules и global styles
+│   ├── src/lib/             # утилиты, форма, API-клиент
 │   ├── Dockerfile
-│   └── nginx.conf
+│   └── next.config.ts
 ├── deploy/nginx/            # nginx-конфиги для avtch.io: HTTP bootstrap + SSL
 ├── deploy/ubuntu/README.md  # пошаговый деплой на чистый Ubuntu VPS
 ├── deploy/TEST_DEPLOY.md    # тестовый деплой на Render + Vercel + Neon
@@ -38,6 +38,7 @@ Production-ready стартовый проект для корпоративно
 - Форма заявки с frontend-валидацией, loading/success/error состояниями и honeypot-полем.
 - Django endpoint `POST /api/contact/`.
 - Модель `ContactRequest`, сохранение IP/User-Agent и просмотр заявок в Django admin.
+- Диагностика заявок из редизайна: статус Bitrix24, Contact ID, Deal ID, JSON-ответы Bitrix, JSON запроса/ответа API route и статус email-отправки.
 - Email-отправка заявки на `CONTACT_RECEIVER_EMAIL`.
 - Простая IP rate-limit защита формы.
 - SEO: title, description, keywords, Open Graph, favicon, robots.txt, sitemap.xml, semantic HTML.
@@ -62,12 +63,13 @@ Frontend:
 
 ```bash
 cd frontend
-cp .env.example .env
-npm install
-npm run dev
+cp .env.example .env.local
+corepack enable
+pnpm install
+pnpm dev
 ```
 
-Сайт будет доступен на `http://localhost:5173`. Vite проксирует `/api` на Django `http://127.0.0.1:8000`.
+Сайт будет доступен на `http://localhost:3000`. Форма редизайна отправляет заявки в Next.js API route `/api/bitrix`; после отправки route пишет диагностику в Django endpoint `/api/contact/log/`.
 
 ## Локальный запуск через Docker
 
@@ -78,7 +80,7 @@ docker compose up --build
 
 Frontend: `http://localhost:8080`
 Backend healthcheck: `http://localhost:8000/api/health/`
-Admin: `http://localhost:8080/admin/`
+Admin: `http://localhost:8000/admin/`
 
 Создание администратора в Docker:
 
@@ -105,6 +107,22 @@ CONTACT_RECEIVER_EMAILS=info@avtch.io
 
 Для локальной разработки можно оставить `EMAIL_HOST` пустым в `backend/.env`: при `DJANGO_DEBUG=True` письма будут выводиться в консоль Django.
 В письме используется `Reply-To` с email клиента, поэтому отвечать на заявку можно прямо из почтового клиента.
+
+## Bitrix24 и диагностика в admin
+
+Форма редизайна сначала создаёт контакт и сделку в Bitrix24 через Next.js API route `/api/bitrix`, затем сохраняет результат в Django admin через внутренний endpoint `/api/contact/log/`.
+
+Для Docker/VPS в корневом `.env` задайте:
+
+```env
+BITRIX_CONTACT_WEBHOOK=<bitrix-contact-webhook-base-url>
+BITRIX_DEAL_WEBHOOK=<bitrix-deal-webhook-base-url>
+INTERNAL_API_TOKEN=<same-long-random-token>
+DJANGO_SUBMISSION_LOG_URL=http://backend:8000/api/contact/log/
+DJANGO_SUBMISSION_LOG_TOKEN=<same-long-random-token>
+```
+
+В Django admin откройте `Заявки`: там видны статус Bitrix24, ID контакта/сделки, JSON-ответы Bitrix, JSON запроса формы, JSON ответа frontend API route, дата отправки email и ошибка email, если SMTP не сработал.
 
 ## API заявки
 
@@ -141,7 +159,7 @@ Frontend:
 
 ```bash
 cd frontend
-npm run build
+pnpm build
 ```
 
 Backend:
@@ -169,7 +187,7 @@ Production compose публикует backend и frontend только на `127
 
 ## Test deploy: Render + Vercel + Neon
 
-Подготовлены `render.yaml`, `frontend/vercel.json` и инструкция `deploy/TEST_DEPLOY.md`.
+Подготовлены `render.yaml` и инструкция `deploy/TEST_DEPLOY.md`.
 
 Коротко:
 
@@ -181,7 +199,14 @@ CORS_ALLOWED_ORIGINS=https://<your-vercel-app>.vercel.app
 CSRF_TRUSTED_ORIGINS=https://<your-render-service>.onrender.com,https://<your-vercel-app>.vercel.app
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
 CONTACT_RECEIVER_EMAILS=info@avtch.io
+INTERNAL_API_TOKEN=<same-long-random-token>
 
 # Vercel frontend
-VITE_API_URL=https://<your-render-service>.onrender.com/api
+NEXT_PUBLIC_SITE_URL=https://<your-vercel-app>.vercel.app
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=<cloudflare-turnstile-site-key>
+BITRIX_CONTACT_WEBHOOK=<bitrix-contact-webhook>
+BITRIX_DEAL_WEBHOOK=<bitrix-deal-webhook>
+TURNSTILE_SECRET_KEY=<cloudflare-turnstile-secret-key>
+DJANGO_SUBMISSION_LOG_URL=https://<your-render-service>.onrender.com/api/contact/log/
+DJANGO_SUBMISSION_LOG_TOKEN=<same-long-random-token>
 ```

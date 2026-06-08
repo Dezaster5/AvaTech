@@ -28,20 +28,21 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
-             gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120 --keep-alive 5 --access-logfile - --error-logfile -"
 
   frontend:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: ${VITE_API_URL:-/api}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:8080}
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
     restart: unless-stopped
+    env_file:
+      - .env
     depends_on:
       - backend
     ports:
-      - "8080:80"
-    volumes:
-      - static_data:/usr/share/nginx/html/static:ro
+      - "8080:3000"
 
 volumes:
   postgres_data:

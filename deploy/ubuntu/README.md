@@ -104,7 +104,15 @@ CONTACT_RECEIVER_EMAILS=info@avtch.io
 
 CONTACT_RATE_LIMIT_COUNT=5
 CONTACT_RATE_LIMIT_WINDOW_SECONDS=900
-VITE_API_URL=/api
+INTERNAL_API_TOKEN=<LONG_RANDOM_INTERNAL_TOKEN>
+
+NEXT_PUBLIC_SITE_URL=https://avtch.io
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=<CLOUDFLARE_TURNSTILE_SITE_KEY>
+BITRIX_CONTACT_WEBHOOK=<BITRIX_CONTACT_WEBHOOK>
+BITRIX_DEAL_WEBHOOK=<BITRIX_DEAL_WEBHOOK>
+TURNSTILE_SECRET_KEY=<CLOUDFLARE_TURNSTILE_SECRET_KEY>
+DJANGO_SUBMISSION_LOG_URL=http://backend:8000/api/contact/log/
+DJANGO_SUBMISSION_LOG_TOKEN=<LONG_RANDOM_INTERNAL_TOKEN>
 ```
 
 Сгенерировать значения:
@@ -114,7 +122,7 @@ openssl rand -base64 48
 openssl rand -base64 32
 ```
 
-Первое значение используйте для `DJANGO_SECRET_KEY`, второе можно использовать как `POSTGRES_PASSWORD`.
+Первое значение используйте для `DJANGO_SECRET_KEY`, второе можно использовать как `POSTGRES_PASSWORD`. Ещё одно отдельное значение задайте одинаково в `INTERNAL_API_TOKEN` и `DJANGO_SUBMISSION_LOG_TOKEN`.
 
 Для Mail.ru нужен пароль приложения, а не обычный пароль от почты.
 
@@ -205,6 +213,12 @@ curl -X POST https://avtch.io/api/contact/ \
   -d '{"name":"Test","company":"AvaTech","phone":"+77019712777","email":"test@example.com","comment":"Test deploy request"}'
 ```
 
+Проверить внутреннее сохранение диагностики из Next.js в Django admin:
+
+```bash
+docker compose -f docker-compose.prod.yml exec frontend node -e "fetch(process.env.DJANGO_SUBMISSION_LOG_URL,{method:'POST',headers:{'Content-Type':'application/json','X-AvaTech-Internal-Token':process.env.DJANGO_SUBMISSION_LOG_TOKEN},body:JSON.stringify({name:'Test Admin Log',company:'AvaTech',phone:'+77019712777',email:'test@example.com',message:'Internal log test',bitrix_status:'failed',bitrix_error:'Manual diagnostics test',request_payload:{source:'manual'},api_response_payload:{success:false,error:'manual'}})}).then(async r=>console.log(r.status,await r.text()))"
+```
+
 ## 11. Backup PostgreSQL
 
 ```bash
@@ -223,6 +237,7 @@ cat backup_YYYY-MM-DD.sql | docker compose -f docker-compose.prod.yml exec -T db
 - Главная страница открывается по HTTPS.
 - `/api/health/` возвращает JSON.
 - `/admin/` открывается со стилями.
-- Форма заявки сохраняет запись в admin.
+- Форма заявки создаёт контакт/сделку в Bitrix24 и сохраняет запись в admin.
+- В admin у заявки видны статус Bitrix24, Contact ID, Deal ID, JSON-ответы Bitrix, JSON запроса/ответа API route и статус email.
 - На `info@avtch.io` приходит письмо.
 - Продуктовые страницы открываются при прямом переходе по URL.

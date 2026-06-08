@@ -40,3 +40,5 @@ services:
         value: info@avtch.io
       - key: CONTACT_RECEIVER_EMAILS
         value: info@avtch.io
+      - key: INTERNAL_API_TOKEN
+        sync: false

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://avtch.io/sitemap.xml

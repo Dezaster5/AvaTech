@@ -46,7 +46,13 @@ def postgres_database_from_url(database_url: str) -> dict[str, object]:
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-only-change-me")
 DEBUG = env_bool("DJANGO_DEBUG", True)
 
-ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,0.0.0.0,avtch.io,www.avtch.io")
+ALLOWED_HOSTS = env_list(
+    "DJANGO_ALLOWED_HOSTS",
+    "localhost,127.0.0.1,0.0.0.0,backend,frontend,host.docker.internal,avtch.io,www.avtch.io",
+)
+for internal_host in ("localhost", "127.0.0.1", "backend", "frontend", "host.docker.internal"):
+    if internal_host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(internal_host)
 if render_hostname := os.getenv("RENDER_EXTERNAL_HOSTNAME"):
     ALLOWED_HOSTS.append(render_hostname)
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", "https://avtch.io,https://www.avtch.io")
@@ -142,7 +148,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = env_list(
     "CORS_ALLOWED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,https://avtch.io,https://www.avtch.io",
+    "http://localhost:3000,http://127.0.0.1:3000,https://avtch.io,https://www.avtch.io",
 )
 CORS_ALLOW_CREDENTIALS = False
 
@@ -175,6 +181,11 @@ CONTACT_RECEIVER_EMAIL = CONTACT_RECEIVER_EMAILS[0]
 
 CONTACT_RATE_LIMIT_COUNT = int(os.getenv("CONTACT_RATE_LIMIT_COUNT", "5"))
 CONTACT_RATE_LIMIT_WINDOW_SECONDS = int(os.getenv("CONTACT_RATE_LIMIT_WINDOW_SECONDS", "900"))
+INTERNAL_API_TOKEN = env_str("INTERNAL_API_TOKEN")
+DJANGO_SUBMISSION_LOG_TOKEN = env_str("DJANGO_SUBMISSION_LOG_TOKEN")
+INTERNAL_API_TOKENS = {
+    token for token in (INTERNAL_API_TOKEN, DJANGO_SUBMISSION_LOG_TOKEN) if token
+}
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", not DEBUG)

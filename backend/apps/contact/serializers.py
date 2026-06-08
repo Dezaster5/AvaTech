@@ -16,9 +16,9 @@ class ContactRequestSerializer(serializers.ModelSerializer):
         fields = ("name", "company", "phone", "email", "comment", "website")
         extra_kwargs = {
             "name": {"required": True, "allow_blank": False, "trim_whitespace": True},
-            "company": {"required": True, "allow_blank": False, "trim_whitespace": True},
+            "company": {"required": False, "allow_blank": True, "trim_whitespace": True},
             "phone": {"required": True, "allow_blank": False, "trim_whitespace": True},
-            "email": {"required": True, "allow_blank": False, "trim_whitespace": True},
+            "email": {"required": False, "allow_blank": True, "trim_whitespace": True},
             "comment": {"required": False, "allow_blank": True, "trim_whitespace": True},
         }
 
@@ -34,4 +34,6 @@ class ContactRequestSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs: dict) -> dict:
         attrs.pop("website", None)
+        attrs["company"] = attrs.get("company") or "Не указана"
+        attrs["email"] = attrs.get("email") or ""
         return attrs
