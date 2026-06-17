@@ -216,6 +216,12 @@ docker compose -f docker-compose.prod.yml logs -f db
 journalctl -u nginx -f
 ```
 
+В `backend` логах первая колонка теперь берётся из `X-Forwarded-For`, а `docker=...` показывает внутренний адрес Docker bridge для диагностики:
+
+```text
+185.224.137.37 docker=172.18.0.1 - - [17/Jun/2026:12:00:00 +0500] "GET /api/health/ HTTP/1.0" 200 ...
+```
+
 Проверить форму заявки:
 
 ```bash

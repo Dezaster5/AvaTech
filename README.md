@@ -167,7 +167,7 @@ Backend:
 ```bash
 cd backend
 python manage.py collectstatic --noinput
-gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3
+gunicorn config.wsgi:application --config config/gunicorn.py
 ```
 
 ## VPS deployment notes
