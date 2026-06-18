@@ -109,10 +109,10 @@ export function Products() {
             {/* мокап справа */}
             <div className="relative z-10 flex flex-1 items-center justify-center p-5 sm:p-6 sm:pl-0">
               <Image
-                src="/products/hr-tech.png"
-                alt="HR Tech-приложение AvaTech: вход в систему Avatariya"
-                width={1448}
-                height={1086}
+                src="/products/hr-tech-ava.png"
+                alt="AVA HR by AvaTech: дашборд сотрудников и мобильное приложение"
+                width={1700}
+                height={1044}
                 sizes="(max-width: 1024px) 90vw, 460px"
                 className="w-full max-w-sm [filter:drop-shadow(0_18px_32px_rgba(17,25,38,0.13))] transition-transform duration-500 group-hover:-translate-y-1"
               />
@@ -175,10 +175,10 @@ export function Products() {
             </div>
             <div className="relative z-10 flex flex-1 items-end justify-center px-5 pt-2 pb-5 sm:px-6">
               <Image
-                src="/products/kassa1.png"
-                alt="Касса самообслуживания AvaTech: самостоятельная покупка"
-                width={714}
-                height={1282}
+                src="/products/kassa-csi.png"
+                alt="Касса самообслуживания Ava CSI: терминал и приложение"
+                width={408}
+                height={996}
                 sizes="150px"
                 className="w-[138px] [filter:drop-shadow(0_18px_32px_rgba(17,25,38,0.13))] transition-transform duration-500 group-hover:-translate-y-1"
               />
