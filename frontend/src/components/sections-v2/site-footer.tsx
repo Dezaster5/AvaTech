@@ -76,6 +76,13 @@ export function SiteFooter() {
                 </a>
               </li>
             </ul>
+
+            <a
+              href="https://green-api.com/"
+              className="mt-7 inline-flex border-l-2 border-brand pl-3 text-sm font-medium text-white/60 transition-colors hover:text-white focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+            >
+              Powered by GREEN-API
+            </a>
           </div>
         </div>
 
